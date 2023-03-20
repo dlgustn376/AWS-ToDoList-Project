@@ -11,10 +11,11 @@
 .container {
     position: relative;
     margin: 50px auto;
-    border: 2px solid #dbdbdb;
+    border: 2px solid #dcdcdc;
     width: 600px;
     height: 800px;
-    background-color: white;
+    border-radius: 30px;
+    background-color: #ffffff;
     overflow: hidden; /* 넘치는것들은 숨기겠다. */
 }
 input, textarea {
