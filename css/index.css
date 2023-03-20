@@ -44,6 +44,17 @@
     font-size: 20px;
     font-weight: 600;
 }
+
+.fa-solid{
+    color: #2F4F4F;
+}
+.fa-solid:hover{
+    color: #2E8B57;
+}
+.fa-solid:active{
+    color: #2E8B57;
+}
+
 .content-input{
     display: flex;
     justify-content: center;
@@ -80,7 +91,9 @@
     font-weight: 400;
     color: #121212;
 }
-
+.content-todo button{
+    border: 0;
+}
 
 
 .toggle-content{

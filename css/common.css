@@ -15,31 +15,32 @@
     width: 600px;
     height: 800px;
     border-radius: 30px;
-    background-color: #ffffff;
+    background-color: #FFFACD;
     overflow: hidden; /* 넘치는것들은 숨기겠다. */
 }
 input, textarea {
     border: none;
     outline: none;
     padding: 5px;
+    background-color: #FFFACD;
 }
 
 input:focus, textarea.focus {
-    background-color: #fafafa;
+    background-color: #F5F5DC;
 }
 
 button {
-    border: 1px solid #dbdbdb;
+    border: none;
     padding: 5px 10px;
-    background-color: white;
+    background-color: #E6F4DC;
     font-weight: 600;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #f0f0f0;
+    background-color: #E6F4DC;
 }
 
 button:active { /* 클릭되었을때 */
-    background-color: #f0f0f0;
+    background-color: #E6F4DC;
 }
