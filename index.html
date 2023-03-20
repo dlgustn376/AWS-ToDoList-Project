@@ -5,8 +5,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ToDoList_Project</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/index.css">
 </head>
 <body>
-    
+    <main class="main-container">
+        <header class="main-header">
+            <h1 class="main-title">ToDoList_Project</h1>
+        </header>
+        <div class="content-container">
+            <div class="content-header">
+                <div class="todo-date">2023.03.20</div>
+                <div class="todo-date-time">10:02:45</div>
+            </div>
+            <div class="content-input">
+                <input type="text" class="todo-input" placeholder="Please enter todo...">
+                <button type="button">입력</button>
+            </div>
+            <ul>
+                <li>
+                    <button type="button">토글</button>
+                    <label for="todo-input">할일</label>
+                    <button type="button">삭제</button>
+                </li>
+            </ul>
+        </div>
+    </main>
+
+    <script src="./Js/todo.js"></script>
+    <script src="./Js/info.js"></script>
+    <script src="./Js/app.js"></script>
 </body>
 </html>
