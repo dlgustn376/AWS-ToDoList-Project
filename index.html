@@ -5,33 +5,60 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ToDoList_Project</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/common.css">
     <link rel="stylesheet" href="./css/index.css">
 </head>
 <body>
-    <main class="main-container">
-        <header class="main-header">
-            <h1 class="main-title">ToDoList_Project</h1>
-        </header>
-        <div class="content-container">
-            <div class="content-header">
-                <div class="todo-date">2023.03.20</div>
-                <div class="todo-date-time">10:02:45</div>
-            </div>
-            <div class="content-input">
-                <input type="text" class="todo-input" placeholder="Please enter todo...">
-                <button type="button">입력</button>
-            </div>
-            <ul>
-                <li>
-                    <button type="button">토글</button>
-                    <label for="todo-input">할일</label>
-                    <button type="button">삭제</button>
-                </li>
-            </ul>
-        </div>
-    </main>
+    <div class="container">
+        <main class="main-container">
+            <header class="main-header">
+                <h1 class="main-title">ToDoList_Project</h1>
+            </header>
+            <div class="content-container">
+                <div class="content-header">
+                    <div class="content-header-container">
+                        <input type="text" class="content-text" placeholder="오늘의 명언을 입력">
+                        <button type="button"><i class="fa-solid fa-computer-mouse"></i></button>
+                    </div>
+                    <div>
+                        <label for="content-text" class="content-text-label">오늘의 명언</label>
+                        <button type="button" class="modify-button"><i class="fa-solid fa-pen-to-square"></i></button>
+                    </div>
+                </div>
+                <div class="content-input">
+                    <input type="text" class="todo-input" placeholder="Please enter todo...">
+                    <button type="button"><i class="fa-solid fa-computer-mouse"></i></button>
+                </div>
+                <ul class="todo-content-list">
+                    <li class="content-list-container">
+                        <div class="content-todo">
+                            <button type="button" class="toggle-button"><i class="fa-solid fa-toggle-off"></i></button>
+                            <label for="todo-input">할일</label>
+                            <button type="button" class="remove-button">⨉</button>
+                        </div>
+                        <div class="toggle-content">
+                            <p>세부내용 </p>
+                        </div>
+                    </li>
+                    <li class="content-list-container">
+                        <div class="content-todo">
+                            <button type="button" class="toggle-button"><i class="fa-solid fa-toggle-off"></i></button>
+                            <label for="todo-input">할일</label>
+                            <button type="button" class="remove-button">⨉</button>
+                        </div>
+                        <div class="toggle-content">
+                            <p>세부내용</p>
+                        </div>
+                    </li>
+                </ul>
+|            </div>
+        </main>
+
+        
+    </div>
 
     <script src="./Js/todo.js"></script>
     <script src="./Js/info.js"></script>
