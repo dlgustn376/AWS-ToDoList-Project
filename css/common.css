@@ -1,0 +1,44 @@
+/* 디자인 전체에서 공통적인것 */
+*::-webkit-scrollbar{
+    width: 5px;
+}
+
+*::-webkit-scrollbar-thumb{
+    background-color: #dbdbdb;
+    border-radius: 5px;   
+}
+
+.container {
+    position: relative;
+    margin: 50px auto;
+    border: 2px solid #dbdbdb;
+    width: 600px;
+    height: 800px;
+    background-color: white;
+    overflow: hidden; /* 넘치는것들은 숨기겠다. */
+}
+input, textarea {
+    border: none;
+    outline: none;
+    padding: 5px;
+}
+
+input:focus, textarea.focus {
+    background-color: #fafafa;
+}
+
+button {
+    border: 1px solid #dbdbdb;
+    padding: 5px 10px;
+    background-color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #f0f0f0;
+}
+
+button:active { /* 클릭되었을때 */
+    background-color: #f0f0f0;
+}
