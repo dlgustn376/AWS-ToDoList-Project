@@ -35,15 +35,20 @@ class TodoEvent{
   }
 
   addEventToggleClick(){
-    const toggleButtons = document.querySelectorAll('.toggle-button');
+    const toggleButtons = document.querySelectorAll(".toggle-button");
+    // const toggleIcon = document.querySelector(".toggle-button.fa-solid");
     
     toggleButtons.forEach((toggleButton, index) =>{
-      const toggleContent = document.querySelectorAll('.toggle-content')[index];
+      const toggleContent = document.querySelectorAll(".toggle-content")[index];
       toggleButton.onclick = () =>{
-        if (toggleContent.style.display === 'none') {
-          toggleContent.style.display = 'block';
+        if (toggleContent.style.display === "none") {
+          toggleContent.style.display = "block";
+          // toggleIcon.classList.remove("fa-toggle-off");
+          // toggleIcon.classList.add("fa-toggle-on");
         } else {
-          toggleContent.style.display = 'none';
+          toggleContent.style.display = "none";
+          // toggleIcon.classList.add("fa-toggle-off");
+          // toggleIcon.classList.remove("fa-toggle-on");
         }
       }
     });
@@ -102,7 +107,7 @@ class TodoService{
 
   loadTodoList() {
     const todoContentList = document.querySelector(".todo-content-list");
-    todoContentList.innerHTML = ``;
+    // todoContentList.innerHTML = ``;
 
     this.todoList.forEach((todoObj,index) => {
         todoContentList.innerHTML += `
