@@ -73,7 +73,8 @@ class AdageService{
     // 현재 입력된 adageMessage 값으로 수정
     this.adageMessage = document.querySelector(".content-adage-input").value.trim();
     this.loadAdage();
-}
+    }
+    
   loadAdage() {
     if (this.adageMessage == null) {
       return;

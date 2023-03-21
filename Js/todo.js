@@ -36,39 +36,26 @@ class TodoEvent{
     }); 
   }
 
-  addEventToggleClick(){
+  addEventToggleClick() {
     const toggleButtons = document.querySelectorAll(".toggle-button");
-    // const toggleIcon = document.querySelector(".toggle-button.fa-solid");
-    
-    toggleButtons.forEach((toggleButton, index) =>{
+  
+    toggleButtons.forEach((toggleButton, index) => {
       const toggleContent = document.querySelectorAll(".toggle-content")[index];
-      toggleButton.onclick = () =>{
+      toggleButton.onclick = () => {
+        const toggleIcon = toggleButton.querySelector("i");
+        
         if (toggleContent.style.display === "none") {
           toggleContent.style.display = "block";
-          // toggleIcon.classList.remove("fa-toggle-off");
-          // toggleIcon.classList.add("fa-toggle-on");
+          toggleIcon.classList.remove("fa-toggle-off");
+          toggleIcon.classList.add("fa-toggle-on");
         } else {
           toggleContent.style.display = "none";
-          // toggleIcon.classList.add("fa-toggle-off");
-          // toggleIcon.classList.remove("fa-toggle-on");
+          toggleIcon.classList.add("fa-toggle-off");
+          toggleIcon.classList.remove("fa-toggle-on");
         }
-      }
+      };
     });
   }
-
-  addEventAddToggleClick(){
-    const addToggleButton = document.querySelector(".add-toggle-button");
-
-    if (!addToggleButton) return;
-
-    addToggleButton.onclick = () =>{
-      TodoService.getInstance().addTodo();
-      const toggleInput = document.querySelector(".toggle-input");
-      toggleInput.value = "";
-    }
-  }
-
-
 
   addEventAddToggleClick() {
     const addToggleButtons = document.querySelectorAll(".add-toggle-button");
@@ -76,21 +63,42 @@ class TodoEvent{
     addToggleButtons.forEach((addToggleButton, index) => {
       addToggleButton.onclick = () => {
         const toggleInput = document.querySelectorAll(".toggle-input")[index];
-        // 다시 불러와서 toggle-content가 닫히는 현상.
-        if (toggleInput.value.trim() === ""){
+        
+        if (toggleInput.value.trim() === "") {
           return;
-        } 
-        TodoService.getInstance().addToggleContent(index, toggleInput.value);
+        }
+        
+        const newToggleContent = toggleInput.value;
+        const newToggleContentIndex = TodoService.getInstance().todoList[index].toggleContents.length;
+  
+        TodoService.getInstance().todoList[index].toggleContents.push(newToggleContent);
+        localStorage.setItem("todoList", JSON.stringify(TodoService.getInstance().todoList));
+  
+        const toggleContentMain = document.createElement('div');
+        toggleContentMain.className = 'toggle-content-main';
+  
+        const checkboxInput = document.createElement('input');
+        checkboxInput.type = 'checkbox';
+        checkboxInput.className = 'checkbox-input checkbox-hidden';
+  
+        const contentLabel = document.createElement('label');
+        contentLabel.htmlFor = 'toggle-input';
+        contentLabel.className = `c${newToggleContentIndex + 1}`;
+        contentLabel.innerText = newToggleContent;
+  
+        toggleContentMain.appendChild(checkboxInput);
+        toggleContentMain.appendChild(contentLabel);
+  
+        const toggleContentContainer = document.querySelectorAll('.toggle-content-container')[index];
+        toggleContentContainer.insertBefore(toggleContentMain, toggleContentContainer.querySelector('.toggle-content-footer'));
+  
         toggleInput.value = "";
       };
     });
   }
-
-  // addEventModifyClick(){
-
-  // }
-
   
+  
+
 
 }
 
@@ -122,6 +130,7 @@ class TodoService{
     this.loadTodoList();
   }
   
+  
   addToggleContent(todoIndex, toggleContent) {
     if (!this.todoList[todoIndex]) return;
     this.todoList[todoIndex].toggleContents.push(toggleContent);
@@ -130,18 +139,17 @@ class TodoService{
 
   addTodo() {
     const todoInput = document.querySelector(".todo-input");
-    
+  
     if (!todoInput.value) {
       return;
     }
-    
+  
     const toggleInput = document.querySelector(".toggle-input");
-    const toggleContents = toggleInput ? [toggleInput.value] : [""];
+    const toggleContents = toggleInput && toggleInput.value.trim() !== "" ? [toggleInput.value] : [];
     const todoObj = {
       todoContent: todoInput.value,
       toggleContents: toggleContents
     };
-
   
     this.todoList.push(todoObj);
     this.updateLocalStorage();
@@ -157,12 +165,13 @@ class TodoService{
       const toggleContents = todoObj.toggleContents || [];
   
       let toggleContentsHtml = "";
-      
+
       toggleContents.forEach((toggleContent, index) => {
         toggleContentsHtml += `
           <div class="toggle-content-main">
             <input type="checkbox" class="checkbox-input checkbox-hidden">
             <label for="toggle-input" class="c${index + 1}">${toggleContent}</label>
+            <button type="button" class="modify-button m-button"><i class="fa-solid fa-pen-to-square"></i></button>
           </div>
         `;
       });
@@ -181,9 +190,6 @@ class TodoService{
                 <button type="button" class="add-toggle-button"><i class="fa-solid fa-computer-mouse"></i></button>
               </div>
               ${toggleContentsHtml}
-              <div class="toggle-content-footer">
-                <button type="button" class="modify-button m-button"><i class="fa-solid fa-pen-to-square"></i></button>
-              </div>
             </div>
           </div>
         </li>
@@ -194,6 +200,8 @@ class TodoService{
     TodoEvent.getInstance().addEventToggleClick();
     TodoEvent.getInstance().addEventAddToggleClick();
     TodoEvent.getInstance().addEventRemoveTodoClick();
+    TodoEvent.getInstance().addModifyToggleClickEvent();
+    TodoEvent.getInstance().addToggleStyleChangeEvent();
 
   }
   
