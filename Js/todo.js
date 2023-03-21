@@ -96,6 +96,8 @@ class TodoEvent{
       };
     });
   }
+
+
   
   
 
@@ -171,7 +173,6 @@ class TodoService{
           <div class="toggle-content-main">
             <input type="checkbox" class="checkbox-input checkbox-hidden">
             <label for="toggle-input" class="c${index + 1}">${toggleContent}</label>
-            <button type="button" class="modify-button m-button"><i class="fa-solid fa-pen-to-square"></i></button>
           </div>
         `;
       });
@@ -190,6 +191,9 @@ class TodoService{
                 <button type="button" class="add-toggle-button"><i class="fa-solid fa-computer-mouse"></i></button>
               </div>
               ${toggleContentsHtml}
+            <div class="toggle-content-footer">
+              <button type="button" class="modify-button m-button"><i class="fa-solid fa-pen-to-square"></i></button>
+            </div>
             </div>
           </div>
         </li>
@@ -200,8 +204,7 @@ class TodoService{
     TodoEvent.getInstance().addEventToggleClick();
     TodoEvent.getInstance().addEventAddToggleClick();
     TodoEvent.getInstance().addEventRemoveTodoClick();
-    TodoEvent.getInstance().addModifyToggleClickEvent();
-    TodoEvent.getInstance().addToggleStyleChangeEvent();
+
 
   }
   
