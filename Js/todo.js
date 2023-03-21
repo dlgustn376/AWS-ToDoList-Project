@@ -29,7 +29,9 @@ class TodoEvent{
     const removeButtons = document.querySelectorAll(".content-todo .remove-button");
     removeButtons.forEach((removeButton, index) => {
         removeButton.onclick = () => {
-            ModalService.getInstance().showRemoveModal(index);
+          TodoService.getInstance().todoList.splice(index, 1);
+          TodoService.getInstance().updateLocalStorage();
+          TodoService.getInstance().loadTodoList();
         }
     }); 
   }
@@ -58,13 +60,21 @@ class TodoEvent{
     const addToggleButton = document.querySelector(".add-toggle-button");
 
     addToggleButton.onclick = () =>{
-      const checkboxInput = document.querySelector(".checkbox-input");
-      checkboxInput.classList.remove("checkbox-hidden");
+      TodoService.getInstance().addTodo();
+      const toggleInput = document.querySelector(".toggle-input");
+      toggleInput.value = "";
     }
   }
 
+  addEventModifyClick(){
+
+  }
+
+  
 
 }
+
+
 
 class TodoService{
 
@@ -93,55 +103,71 @@ class TodoService{
   }
   
   addTodo() {
-        const todoInput = document.querySelector(".todo-input");
-        const toggleInput = document.querySelector(".toggle-input");
-        const todoObj = {
-            todoContent: todoInput.value,
-            toggleContent : toggleInput.value
-        }
+    const todoInput = document.querySelector(".todo-input");
+    
+    if (!todoInput.value) {
+      return;
+    }
+    
+    const toggleInput = document.querySelector(".toggle-input");
+    const toggleContents = toggleInput ? [toggleInput.value] : [""];
+    const todoObj = {
+      todoContent: todoInput.value,
+      toggleContents: toggleContents
+    };
 
-        
-        this.todoList.push(todoObj);
-        this.updateLocalStorage();
+  
+    this.todoList.push(todoObj);
+    this.updateLocalStorage();
   }
+  
 
   loadTodoList() {
     const todoContentList = document.querySelector(".todo-content-list");
-    // todoContentList.innerHTML = ``;
-
-    this.todoList.forEach((todoObj,index) => {
-        todoContentList.innerHTML += `
-            <li class="content-list-container">
-                <div class="content-todo">
-                    <button type="button" class="toggle-button"><i class="fa-solid fa-toggle-off"></i></button>
-                    <label for="todo-input">${todoObj.todoContent}</label>
-                    <button type="button" class="remove-button"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-                <div class="toggle-content">
-                      <div class="toggle-content-container">
-                          <div class="toggle-content-header">
-                              <input type="text" class="toggle-input" placeholder="세부내용을 입력하시오">
-                              <button type="button" class="add-toggle-button"><i class="fa-solid fa-computer-mouse"></i></button>
-                          </div>
-                          <div class="toggle-content-main">
-                              <input type="checkbox" class="checkbox-input checkbox-hidden">
-                              <label for="c1">${todoObj.toggleContent}</label>
-                          </div>
-                          <div class="toggle-content-footer">
-                              <button type="button" class="modify-button m-button"><i class="fa-solid fa-pen-to-square"></i></button>
-                          </div>
-                      </div>
-                </div>
-
-            </li>
+  
+    let todoContentListHtml = "";
+  
+    this.todoList.forEach((todoObj) => {
+      const toggleContents = todoObj.toggleContents || [];
+  
+      let toggleContentsHtml = "";
+      toggleContents.forEach((toggleContent, index) => {
+        toggleContentsHtml += `
+          <div class="toggle-content-main">
+            <input type="checkbox" class="checkbox-input checkbox-hidden">
+            <label for="toggle-input" class="c${index + 1}">${toggleContent}</label>
+          </div>
         `;
+      });
+  
+      todoContentListHtml += `
+        <li class="content-list-container">
+          <div class="content-todo">
+            <button type="button" class="toggle-button"><i class="fa-solid fa-toggle-off"></i></button>
+            <label for="todo-input">${todoObj.todoContent}</label>
+            <button type="button" class="remove-button"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+          <div class="toggle-content">
+            <div class="toggle-content-container">
+              <div class="toggle-content-header">
+                <input type="text" class="toggle-input" placeholder="세부내용을 입력하시오">
+                <button type="button" class="add-toggle-button"><i class="fa-solid fa-computer-mouse"></i></button>
+              </div>
+              ${toggleContentsHtml}
+              <div class="toggle-content-footer">
+                <button type="button" class="modify-button m-button"><i class="fa-solid fa-pen-to-square"></i></button>
+              </div>
+            </div>
+          </div>
+        </li>
+      `;
     });
-    TodoEvent.getInstance().addEventAddToggleClick();
-    // TodoEvent.getInstance().addEventModifyTodoClick();
+    todoContentList.innerHTML = todoContentListHtml;
+
+    TodoEvent.getInstance().addEventToggleClick();
     TodoEvent.getInstance().addEventRemoveTodoClick();
+    TodoEvent.getInstance().addEventAddToggleClick();
 
   }
+  
 }
-
-
-/*<!-- 이곳 사이에 innerHTML --> */
