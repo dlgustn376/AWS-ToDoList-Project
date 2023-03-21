@@ -23,6 +23,7 @@
     box-shadow: 0px 0px 5px 1px #a9a9a9;
     border-radius: 30px;
     background-color: #E6F4DC;
+    background-image: linear-gradient(to bottom, #E6F4DC, #FFFFFF);
     transition: box-shadow 0.3s ease;
 }
 .content-header{
@@ -41,7 +42,7 @@
 
 .content-text-label{
     padding-top: 5px;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 600;
 }
 
@@ -84,7 +85,8 @@
     justify-content: space-between;
     align-items: center;
 
-    background-color: #F5F5DC;
+    background-color: #F2F7E2 ;
+
 }
 .content-todo label{
     font-size: 16px;
@@ -95,7 +97,15 @@
     border: 0;
 }
 
-
+.button-hidden{
+    display: none;
+}
+.input-hidden{
+    display: none;
+}
+.label-hidden{
+    display: none;
+}
 .toggle-content{
     display: none;
 }

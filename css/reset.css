@@ -6,7 +6,8 @@
 
 body {
     margin: 0;
-    background-color:#D7ECD9;
+    /* background-color:#D7ECD9; */
+    background-image: linear-gradient(to left, #E6F4DC, #FFFFFF);
 }
 
 h1, h2, h3, p, ul {

@@ -59,12 +59,15 @@ class TodoEvent{
   addEventAddToggleClick(){
     const addToggleButton = document.querySelector(".add-toggle-button");
 
+    if (!addToggleButton) return;
+
     addToggleButton.onclick = () =>{
       TodoService.getInstance().addTodo();
       const toggleInput = document.querySelector(".toggle-input");
       toggleInput.value = "";
     }
   }
+
 
   addEventModifyClick(){
 
@@ -165,8 +168,8 @@ class TodoService{
     todoContentList.innerHTML = todoContentListHtml;
 
     TodoEvent.getInstance().addEventToggleClick();
-    TodoEvent.getInstance().addEventRemoveTodoClick();
     TodoEvent.getInstance().addEventAddToggleClick();
+    TodoEvent.getInstance().addEventRemoveTodoClick();
 
   }
   
