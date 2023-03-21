@@ -69,9 +69,26 @@ class TodoEvent{
   }
 
 
-  addEventModifyClick(){
 
+  addEventAddToggleClick() {
+    const addToggleButtons = document.querySelectorAll(".add-toggle-button");
+  
+    addToggleButtons.forEach((addToggleButton, index) => {
+      addToggleButton.onclick = () => {
+        const toggleInput = document.querySelectorAll(".toggle-input")[index];
+        // 다시 불러와서 toggle-content가 닫히는 현상.
+        if (toggleInput.value.trim() === ""){
+          return;
+        } 
+        TodoService.getInstance().addToggleContent(index, toggleInput.value);
+        toggleInput.value = "";
+      };
+    });
   }
+
+  // addEventModifyClick(){
+
+  // }
 
   
 
@@ -105,6 +122,12 @@ class TodoService{
     this.loadTodoList();
   }
   
+  addToggleContent(todoIndex, toggleContent) {
+    if (!this.todoList[todoIndex]) return;
+    this.todoList[todoIndex].toggleContents.push(toggleContent);
+    this.updateLocalStorage();
+  }
+
   addTodo() {
     const todoInput = document.querySelector(".todo-input");
     
@@ -134,6 +157,7 @@ class TodoService{
       const toggleContents = todoObj.toggleContents || [];
   
       let toggleContentsHtml = "";
+      
       toggleContents.forEach((toggleContent, index) => {
         toggleContentsHtml += `
           <div class="toggle-content-main">
