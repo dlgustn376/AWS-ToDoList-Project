@@ -60,17 +60,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    
     padding: 10px 0px;
     border-bottom: 1px solid #a9a9a9;
 }
-
 
 .todo-content-list{
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
     padding: 10px 0px;
+    overflow-y: auto;
+    max-height: 560px; 
 }
 
 .content-list-container{

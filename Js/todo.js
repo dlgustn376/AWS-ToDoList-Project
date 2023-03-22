@@ -132,9 +132,9 @@ class TodoEvent{
   }
   
   addEventToggleContentModify() {
-    const modifyButtons = document.querySelectorAll(".modify-button");
+    const modifyButtons = document.querySelectorAll(".m-button");
   
-    modifyButtons.forEach((modifyButton, index) => {
+    modifyButtons.forEach((modifyButton) => {
       modifyButton.onclick = () => {
         const contentLabel = modifyButton.previousElementSibling;
         const currentContent = contentLabel.innerText;
@@ -145,11 +145,13 @@ class TodoEvent{
         }
   
         contentLabel.innerText = newContent;
-        TodoService.getInstance().editToggleContent(index, newContent);
+        const toggleContentMain = modifyButton.closest(".toggle-content-main");
+        const toggleIndex = Array.from(toggleContentMain.parentElement.children).indexOf(toggleContentMain) - 1;
+        const todoIndex = Array.from(toggleContentMain.closest('.content-list-container').parentElement.children).indexOf(toggleContentMain.closest('.content-list-container'));
+        TodoService.getInstance().editToggleContent(todoIndex, toggleIndex, newContent);
       };
     });
   }
-  
   
 
 
@@ -209,10 +211,7 @@ class TodoService{
     this.updateLocalStorage();
   }
   
-  editToggleContent(index, newContent) {
-    const todoIndex = Math.floor(index / this.todoList.length);
-    const toggleContentIndex = index % this.todoList.length;
-  
+  editToggleContent(todoIndex, toggleContentIndex, newContent) {
     if (!this.todoList[todoIndex]) return;
   
     this.todoList[todoIndex].toggleContents[toggleContentIndex] = newContent;
