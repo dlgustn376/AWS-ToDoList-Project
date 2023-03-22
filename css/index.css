@@ -141,8 +141,15 @@
 .toggle-content-main{
     padding-top: 10px;
 }
+.toggle-content-main label{
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+}
 
-.toggle-content-footer button{
+.toggle-content-main button{
     background-color: #F2F7E2;
 }
+
+
 
