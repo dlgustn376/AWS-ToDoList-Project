@@ -80,7 +80,7 @@ class AdageService{
       return;
     }
     const contentAdage = document.querySelector(".content-header-text .content-text-label");
-    let contentAdageMessage = "오늘의 명언: "
+    let contentAdageMessage = "나의 상태: "
     contentAdage.textContent =  contentAdageMessage + this.adageMessage;
 
     AdageEvent.getInstance().addEventAdageAddClick();

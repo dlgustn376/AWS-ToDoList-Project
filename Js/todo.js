@@ -122,7 +122,7 @@ class TodoEvent{
   addEventToggleContentComplete() {
     const checkboxInputs = document.querySelectorAll(".checkbox-input");
   
-    checkboxInputs.forEach((checkboxInput, index) => {
+    checkboxInputs.forEach((checkboxInput) => {
       checkboxInput.onclick = () => {
         const isChecked = checkboxInput.checked;
         const contentLabel = checkboxInput.nextElementSibling;
@@ -140,7 +140,7 @@ class TodoEvent{
         const currentContent = contentLabel.innerText;
         const newContent = prompt("Edit content:", currentContent);
   
-        if (newContent === null || newContent.trim() === "") {
+        if ((newContent === null || newContent.trim() === "")) {
           return;
         }
   
@@ -151,6 +151,7 @@ class TodoEvent{
         TodoService.getInstance().editToggleContent(todoIndex, toggleIndex, newContent);
       };
     });
+
   }
   
 
@@ -215,7 +216,7 @@ class TodoService{
     if (!this.todoList[todoIndex]) return;
   
     this.todoList[todoIndex].toggleContents[toggleContentIndex] = newContent;
-    this.updateLocalStorage();
+    this.addTodo();
   }
 
 
