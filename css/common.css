@@ -4,41 +4,45 @@
 }
 
 *::-webkit-scrollbar-thumb{
-    background-color: #dbdbdb;
+    background-color: #D8C8C8;
     border-radius: 5px;   
 }
 
 .container {
     position: relative;
     margin: 50px auto;
-    border: 2px solid #dbdbdb;
+    border: 2px solid #D8C8C8;
     width: 600px;
     height: 800px;
-    background-color: white;
+    border-radius: 30px;
+    background-color: #FFFACD;
+    background-image: linear-gradient(to top right, #BB2649, #FFFACD);
     overflow: hidden; /* 넘치는것들은 숨기겠다. */
 }
 input, textarea {
     border: none;
     outline: none;
     padding: 5px;
+    background-color: #FFE0E0;
 }
 
 input:focus, textarea.focus {
-    background-color: #fafafa;
+    background-color: #FFF0EF;
 }
 
 button {
-    border: 1px solid #dbdbdb;
+    border: none;
+    border-radius: 10px;
     padding: 5px 10px;
-    background-color: white;
+    background-color: #F8A3A4;
     font-weight: 600;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #f0f0f0;
+    background-color: #FF989a;
 }
 
 button:active { /* 클릭되었을때 */
-    background-color: #f0f0f0;
+    background-color: #FF989a;
 }
