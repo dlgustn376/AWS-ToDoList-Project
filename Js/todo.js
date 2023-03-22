@@ -63,11 +63,11 @@ class TodoEvent{
     addToggleButtons.forEach((addToggleButton, index) => {
       addToggleButton.onclick = () => {
         const toggleInput = document.querySelectorAll(".toggle-input")[index];
-        
+  
         if (toggleInput.value.trim() === "") {
           return;
         }
-        
+  
         const newToggleContent = toggleInput.value;
         const newToggleContentIndex = TodoService.getInstance().todoList[index].toggleContents.length;
   
@@ -86,13 +86,22 @@ class TodoEvent{
         contentLabel.className = `c${newToggleContentIndex + 1}`;
         contentLabel.innerText = newToggleContent;
   
+        const modifyButton = document.createElement('button');
+        modifyButton.type = 'button';
+        modifyButton.className = 'modify-button m-button';
+        modifyButton.innerHTML = '<i class="fa-solid fa-pen-to-square"></i>';
+  
         toggleContentMain.appendChild(checkboxInput);
         toggleContentMain.appendChild(contentLabel);
+        toggleContentMain.appendChild(modifyButton);
   
         const toggleContentContainer = document.querySelectorAll('.toggle-content-container')[index];
         toggleContentContainer.insertBefore(toggleContentMain, toggleContentContainer.querySelector('.toggle-content-footer'));
   
         toggleInput.value = "";
+  
+        this.addEventToggleContentComplete();
+        this.addEventToggleContentModify();
       };
     });
   }
@@ -106,6 +115,37 @@ class TodoEvent{
           const addToggleButtons = document.querySelectorAll(".add-toggle-button");
           addToggleButtons[index].click();
         }
+      };
+    });
+  }
+
+  addEventToggleContentComplete() {
+    const checkboxInputs = document.querySelectorAll(".checkbox-input");
+  
+    checkboxInputs.forEach((checkboxInput, index) => {
+      checkboxInput.onclick = () => {
+        const isChecked = checkboxInput.checked;
+        const contentLabel = checkboxInput.nextElementSibling;
+        contentLabel.style.textDecoration = isChecked ? "line-through" : "none";
+      };
+    });
+  }
+  
+  addEventToggleContentModify() {
+    const modifyButtons = document.querySelectorAll(".modify-button");
+  
+    modifyButtons.forEach((modifyButton, index) => {
+      modifyButton.onclick = () => {
+        const contentLabel = modifyButton.previousElementSibling;
+        const currentContent = contentLabel.innerText;
+        const newContent = prompt("Edit content:", currentContent);
+  
+        if (newContent === null || newContent.trim() === "") {
+          return;
+        }
+  
+        contentLabel.innerText = newContent;
+        TodoService.getInstance().editToggleContent(index, newContent);
       };
     });
   }
@@ -169,6 +209,16 @@ class TodoService{
     this.updateLocalStorage();
   }
   
+  editToggleContent(index, newContent) {
+    const todoIndex = Math.floor(index / this.todoList.length);
+    const toggleContentIndex = index % this.todoList.length;
+  
+    if (!this.todoList[todoIndex]) return;
+  
+    this.todoList[todoIndex].toggleContents[toggleContentIndex] = newContent;
+    this.updateLocalStorage();
+  }
+
 
   loadTodoList() {
     const todoContentList = document.querySelector(".todo-content-list");
@@ -205,7 +255,6 @@ class TodoService{
                 <button type="button" class="add-toggle-button"><i class="fa-solid fa-computer-mouse"></i></button>
               </div>
               ${toggleContentsHtml}
-            
             </div>
           </div>
         </li>
@@ -217,6 +266,9 @@ class TodoService{
     TodoEvent.getInstance().addEventAddToggleClick();
     TodoEvent.getInstance().addEventRemoveTodoClick();
     TodoEvent.getInstance().addEventAddToggleKeyUp();
+
+    TodoEvent.getInstance().addEventToggleContentComplete(); 
+    TodoEvent.getInstance().addEventToggleContentModify();
 
   }
   
